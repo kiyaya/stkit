@@ -46,7 +46,7 @@ extern int xprintf(const char *fmt, ...);
 /******************************************************************************/
 /*            Cortex-M4 Processor Exceptions Handlers                         */
 /******************************************************************************/
-
+#if 1
 /**
 * @brief  This function handles all un-handled exceptions.
 * @param  hardfault_args : sp address
@@ -92,6 +92,7 @@ void Default_Handler_c(unsigned int * hardfault_args) {
 }
 
 #else
+
 /**
   * @brief   This function handles NMI exception.
   * @param  None
@@ -172,7 +173,7 @@ void SVC_Handler(void)
 void DebugMon_Handler(void)
 {
 }
-
+#endif
 #if 0 //this ISR has been defined in other place.
 /**
   * @brief  This function handles PendSVC exception.
