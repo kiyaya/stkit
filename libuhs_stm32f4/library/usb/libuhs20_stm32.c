@@ -7,13 +7,55 @@
 
 #include "libuhs20.h"
 #include <bsp/bsp.h>
-#include <bsp/bsp_usb_otg/inc/usb_bsp.h>
-#include <bsp/bsp_usb_otg/inc/usbh_hcs.h>
+#include <bsp/bsp_usb_host/usb_bsp.h>
+#include <bsp/bsp_usb_otg/usb_hcs.h>
 
 extern void xprintf (const char* str, ...);
 
 USB_OTG_CORE_HANDLE USB_OTG_Core_dev;
 static USB_OTG_CORE_HANDLE *mpUsbDevice = &USB_OTG_Core_dev;
+
+/**
+  * @brief  USBH_Init
+  *         Host hardware and stack initializations
+  * @param  class_cb: Class callback structure address
+  * @param  usr_cb: User callback structure address
+  * @retval None
+  */
+void BSP_USBH_Init(//USB_OTG_CORE_HANDLE *pdev,
+               //USB_OTG_CORE_ID_TypeDef coreID,
+               //USBH_HOST *phost,
+               //USBH_Class_cb_TypeDef *class_cb,
+               //USBH_Usr_cb_TypeDef *usr_cb
+)
+{
+	USB_OTG_CORE_HANDLE *pdev = mpUsbDevice;
+	USB_OTG_CORE_ID_TypeDef coreID = USB_OTG_HS_CORE_ID;
+	pdev->cfg.coreID = coreID;
+
+	/* Hardware Init */
+	USB_OTG_BSP_Init(pdev);
+
+	/* configure GPIO pin used for switching VBUS power */
+	USB_OTG_BSP_ConfigVBUS(0);
+
+
+//	/* Host de-initializations */
+//	USBH_DeInit(pdev, phost);
+
+//	/*Register class and user callbacks */
+//	phost->class_cb = class_cb;
+//	phost->usr_cb = usr_cb;
+
+	/* Start the USB OTG core */
+	HCD_Init(pdev , coreID);
+
+//	/* Upon Init call usr call back */
+//	phost->usr_cb->Init();
+
+	/* Enable Interrupts */
+	USB_OTG_BSP_EnableInterrupt(pdev);
+}
 
 int device_attached(uint8_t is_low_speed, uint8_t nak_limit)
 {

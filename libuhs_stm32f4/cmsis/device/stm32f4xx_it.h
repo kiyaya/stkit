@@ -1,26 +1,36 @@
 /**
   ******************************************************************************
-  * @file    Project/STM32F4xx_StdPeriph_Templates/stm32f4xx_it.h 
+  * @file    USB_Host/FWupgrade_Standalone/Inc/stm32f4xx_it.h
   * @author  MCD Application Team
-  * @version V1.2.0
-  * @date    19-September-2013
+  * @version V1.0.1
+  * @date    26-February-2014
   * @brief   This file contains the headers of the interrupt handlers.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2013 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without modification,
+  * are permitted provided that the following conditions are met:
+  *   1. Redistributions of source code must retain the above copyright notice,
+  *      this list of conditions and the following disclaimer.
+  *   2. Redistributions in binary form must reproduce the above copyright notice,
+  *      this list of conditions and the following disclaimer in the documentation
+  *      and/or other materials provided with the distribution.
+  *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  *      may be used to endorse or promote products derived from this software
+  *      without specific prior written permission.
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
@@ -38,41 +48,7 @@
 
  /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-
- /* The lower the value, the greater the priority of the corresponding
- * interrupt.
- * __NVIC_PRIO_BITS = 4, so the lowest priority is 15.
- * */
-enum
-{
-	ISR_PRIORITY_USART 		= 15,
-	ISR_PRIORITY_I2C1_ER 	= 2,
-	ISR_PRIORITY_I2C1_EV 	= 2,
-	ISR_PRIORITY_I2C2_ER 	= 2,
-	ISR_PRIORITY_I2C2_EV 	= 2,
-	ISR_PRIORITY_USB_FS 	= 1,
-	ISR_PRIORITY_USB_HS 	= 1,
-	ISR_PRIORITY_DMA2D		= 1
-};
-
-/*  we use group-4, so no sub priority needed. See prvSetupHardware(). */
-enum
-{
-	ISR_SUB_PRIORITY_USART 		= 0,
-	ISR_SUB_PRIORITY_I2C1_ER 	= 0,
-	ISR_SUB_PRIORITY_I2C1_EV 	= 0,
-	ISR_SUB_PRIORITY_I2C2_ER	= 0,
-	ISR_SUB_PRIORITY_I2C2_EV 	= 0,
-	ISR_SUB_PRIORITY_USB_FS 	= 0,
-	ISR_SUB_PRIORITY_USB_HS	 	= 0,
-	ISR_SUB_PRIORITY_DMA2D		= 0
-
-};
-
 /* Exported macro ------------------------------------------------------------*/
-#define DisableInterrupt() do{__disable_irq();  }while(0)
-#define EnableInterrupt() do{__enable_irq(); }while(0)
-
 /* Exported functions ------------------------------------------------------- */
 #if 1	// currently we use Default_Handler_c to manage these exceptions
 void Default_Handler_c(unsigned int * hardfault_args);
@@ -86,11 +62,11 @@ void SVC_Handler(void);
 void DebugMon_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
+//void OTG_HS_IRQHandler(void);
 #endif
-void I2C1_EV_IRQHandler(void);
-void I2C1_ER_IRQHandler(void);
-void I2C2_EV_IRQHandler(void);
-void I2C2_ER_IRQHandler(void);
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __STM32F4xx_IT_H */
 

@@ -15,7 +15,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#include "misc.h" /* High level functions for NVIC and SysTick (add-on to CMSIS functions) */
+//#include "misc.h" /* High level functions for NVIC and SysTick (add-on to CMSIS functions) */
 #include "comm.h"
 #include "delay.h"
 #include "gpio.h"

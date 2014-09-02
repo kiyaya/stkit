@@ -6,10 +6,11 @@
  */
 
 #include <bsp/bsp.h>
-#include <library/usb/libuhs20.h>
+//#include <library/usb/libuhs20.h>
 
 void setup(void)
 {
+//	BSP_USBH_Init();
 
 }
 
